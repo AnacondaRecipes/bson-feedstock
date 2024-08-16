@@ -1,20 +1,17 @@
 {% set name = "bson" %}
-{% set version = "0.5.9" %}
-{% set sha256 = "84a06dd1fa350d5814d9845abad982e8ac4c9768c4f41afeaa5fdb6d58570158" %}
+{% set version = "0.5.10" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  fn: {{ name }}-{{ version }}.tar.gz
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: {{ sha256 }}
+  git_url: https://github.com/py-bson/bson.git
+  git_rev: {{ version }}
 
 build:
-  noarch: python
   number: 0
-  script: {{ PYTHON }} -m pip install . --no-deps -vv
+  script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation -vv
 
 requirements:
   host:
@@ -27,12 +24,28 @@ requirements:
     - python-dateutil >=2.4.0
 
 test:
+  source_files:
+    - bson/tests
   imports:
     - bson
+  requires:
+    - pip
+    - pytest
+  commands:
+    - pip check
+    - pytest -v  # [py<312]
+    # These test files use assertEquals, removed in python 3.12.
+    - pytest -v --ignore="bson/tests/test_array.py" --ignore="bson/tests/test_random_tree.py" # [py>=312]
 
 about:
-  summary: Independent BSON codec for Python that doesn't depend on MongoDB.
   home: https://github.com/py-bson/bson
+  dev_url: https://github.com/py-bson/bson
+  doc_url: https://github.com/py-bson/bson/blob/master/README.rst
+  summary: Independent BSON codec for Python that doesn't depend on MongoDB.
+  description: |
+    Independent BSON codec for Python that doesn't depend on MongoDB. 
+    The bson ObjectId implementation is forked from the PyMongo project,
+    licensed under the Version 2.0 Apache License.
   license: BSD-3-Clause
   license_family: BSD
   license_file: LICENSE.txt
