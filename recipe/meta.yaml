@@ -14,6 +14,9 @@ build:
   script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation -vv
 
 requirements:
+  build:
+    - git  # [unix]
+    - m2-git  # [win]
   host:
     - python
     - setuptools
