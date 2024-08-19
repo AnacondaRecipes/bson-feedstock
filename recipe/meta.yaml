@@ -1,13 +1,14 @@
 {% set name = "bson" %}
 {% set version = "0.5.10" %}
+{% set sha256 = "fef2a86682570c3622519ddafb7477e9b876d440eba4e04017b1a5f3b49ccc27" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  git_url: https://github.com/py-bson/bson.git
-  git_rev: {{ version }}
+  url: https://github.com/py-bson/bson/archive/refs/tags/{{version}}.tar.gz
+  sha256: {{ sha256 }}
 
 build:
   number: 0
