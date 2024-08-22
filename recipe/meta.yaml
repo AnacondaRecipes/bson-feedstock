@@ -48,9 +48,11 @@ about:
     Independent BSON codec for Python that doesn't depend on MongoDB. 
     The bson ObjectId implementation is forked from the PyMongo project,
     licensed under the Version 2.0 Apache License.
-  license: BSD-3-Clause
-  license_family: BSD
-  license_file: LICENSE.txt
+  license: BSD-3-Clause AND Apache-2.0
+  license_family: OTHER  
+  license_file: 
+    - LICENSE
+    - LICENSE_APACHE
 
 extra:
   recipe-maintainers:
